@@ -1,0 +1,17 @@
+.loginpage{
+    width: 100%;
+    max-width: 1000px;
+    margin: 30px auto;
+    display: flex; 
+     height: 80vh;
+    justify-content: center;
+    gap: 100px;
+
+    .buttons{
+        display: flex;
+        gap: 20px;
+        text-transform: uppercase;
+    }
+
+   
+}
