@@ -2,10 +2,8 @@ import NavigationBar from "./routes/Navigation/navigation.component";
 import Home from "./routes/home/home.component";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Authenticationpage from "./routes/Authentication/Authentication.component";
-
-const Shop = () => {
-  return <h1>Shop page</h1>;
-};
+import { Shoppage } from "./routes/shop/shop.page";
+import CheckoutPage from "./routes/checkoutpage/checloutpahe";
 
 const route = createBrowserRouter([
   {
@@ -18,11 +16,15 @@ const route = createBrowserRouter([
       },
       {
         path: "/shop",
-        element: <Shop />,
+        element: <Shoppage />,
       },
       {
         path: "/Sign-in",
         element: <Authenticationpage />,
+      },
+      {
+        path: "/checkout",
+        element: <CheckoutPage />,
       },
     ],
   },

@@ -3,6 +3,7 @@ body {
   font-family: "Open Sans", sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
+    padding: 20px 50px;
     font-variation-settings:
       "wdth" 100;
   -webkit-font-smoothing: antialiased;

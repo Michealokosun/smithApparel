@@ -6,6 +6,8 @@ import {
   signInWithPopup,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
 } from "firebase/auth";
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 //
@@ -70,13 +72,23 @@ export const createusedocumentfromauth = async (authdata, additionaldata) => {
   return userref;
 };
 
+//// -----------SIGN UP WITH EMAIL AND PASSWOD FUNCTION -----------
 export const createAuthWithPasswordAndEmail = async (email, password) => {
   if (!email || !password) return;
 
   return await createUserWithEmailAndPassword(auth, email, password);
 };
+
+/// SIGN IN WITH EMAIL AND PASSOWOD FUNCTION
 export const signinWithPasswordAndEmail = async (email, password) => {
   if (!email || !password) return;
 
   return await signInWithEmailAndPassword(auth, email, password);
 };
+
+///////// ---------------- SIGNS OUT THE USER
+export const Signout = async () => signOut(auth);
+
+////////// LISTENS FOR THE AUTHENTICATION CHANGE OF THE USER ----------
+export const onAuthstatechange = async (callback) =>
+  onAuthStateChanged(auth, callback);

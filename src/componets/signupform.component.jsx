@@ -1,4 +1,5 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 import {
   createAuthWithPasswordAndEmail,
   createusedocumentfromauth,
@@ -15,6 +16,7 @@ const defaultdata = {
 const SignUpform = () => {
   const [formdata, setformdata] = useState(defaultdata);
   const { displayName, password, email, confirmpassword } = formdata;
+  const [loading, setloading] = useState(false);
   const handlechange = (e) => {
     e.preventDefault();
     const { name, value } = e.target;
@@ -26,12 +28,14 @@ const SignUpform = () => {
     if (password !== confirmpassword) return;
 
     try {
+      setloading(true);
       const { user } = await createAuthWithPasswordAndEmail(email, password);
       await createusedocumentfromauth(user, { displayName });
-      console.log("created");
+      toast.success("User created successfully");
+      setloading(false);
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
-        alert("email-already-in-use");
+        toast.error("email-already-in-use");
       } else {
         console.log(error.message);
       }
@@ -75,7 +79,7 @@ const SignUpform = () => {
           required
         />
         <Button type="submit" buttontype="inverted">
-          Sign up
+          {loading ? "Loading..." : "Sign Up"}
         </Button>
       </form>
     </div>

@@ -1,6 +1,6 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 import {
-  createusedocumentfromauth,
   signInWithPopUp,
   signinWithPasswordAndEmail,
 } from "../utils/firbase/firebase.utils";
@@ -17,6 +17,7 @@ const Signinform = () => {
   const [formdata, setformdata] = useState(defaultdata);
   const [Loading, setloading] = useState(false);
   const { password, email } = formdata;
+
   const handlechange = (e) => {
     e.preventDefault();
     const { name, value } = e.target;
@@ -26,16 +27,17 @@ const Signinform = () => {
   const handsubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await signinWithPasswordAndEmail(email, password);
-      console.log(res);
+      // eslint-disable-next-line no-unused-vars
+      const { user } = await signinWithPasswordAndEmail(email, password);
+      toast.success("signin successful 🎉🎉");
     } catch (error) {
       switch (error.code) {
         case "auth/wrong-passowrd":
-          alert("incorret password");
+          toast.error("incorret password");
 
           break;
         case "auth/invalid-credential":
-          alert("user not found");
+          toast.error("user not found");
           break;
 
         default:
@@ -46,8 +48,9 @@ const Signinform = () => {
 
   const handeGoogleSignIn = async () => {
     setloading(true);
+    // eslint-disable-next-line no-unused-vars
     const { user } = await signInWithPopUp();
-    await createusedocumentfromauth(user);
+    toast.success("signin successful 🎉🎉");
     setloading(false);
   };
 
