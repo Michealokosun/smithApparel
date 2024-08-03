@@ -9,7 +9,16 @@ import {
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
-import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  writeBatch,
+  query,
+  getDocs,
+  collection,
+} from "firebase/firestore";
 //
 //
 //
@@ -92,3 +101,36 @@ export const Signout = async () => signOut(auth);
 ////////// LISTENS FOR THE AUTHENTICATION CHANGE OF THE USER ----------
 export const onAuthstatechange = async (callback) =>
   onAuthStateChanged(auth, callback);
+
+///
+///
+/// ************* ADD DOCUMENTTO DATABASE ********************
+
+export const addcollectionanddocument = async (collectionkey, objectToAdd) => {
+  const collectionref = collection(db, collectionkey);
+  const batch = writeBatch(db);
+
+  objectToAdd.forEach((object) => {
+    const docref = doc(collectionref, object.title.toLowerCase());
+    batch.set(docref, object);
+  });
+
+  batch.commit();
+  console.log("successful");
+};
+
+// *************  GE DOCUMENT FROM DB ********
+
+export const getDocumentFromDb = async () => {
+  const docref = collection(db, "collections");
+  const q = query(docref);
+  const docsSnapshot = await getDocs(q);
+
+  const datas = docsSnapshot.docs.reduce((acc, snapshot) => {
+    const { title, items } = snapshot.data();
+    acc[title.toLowerCase()] = items;
+
+    return acc;
+  }, {});
+  return datas;
+};

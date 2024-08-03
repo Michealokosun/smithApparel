@@ -3,12 +3,12 @@ import { Button } from "./button.component";
 import "../styles/product-card.styles.scss";
 import { cartcontex } from "../contexApi/cart-contex";
 import toast from "react-hot-toast";
-export default function ProductCard({ item }) {
+export default function ProductCard({ product }) {
   const { addItemToCart } = useContext(cartcontex);
-  const { name, price, imageUrl } = item;
+  const { name, price, imageUrl } = product;
 
   const handleAddToCart = () => {
-    addItemToCart(item);
+    addItemToCart(product);
     toast.success("Added to cart");
   };
   return (

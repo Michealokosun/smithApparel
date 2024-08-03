@@ -4,18 +4,18 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { UserProvider } from "./contexApi/Authentication-context";
-import { ProductProvider } from "./contexApi/product.contex";
+import { CollectionProvider } from "./contexApi/collection.contex";
 import { CartProvider } from "./contexApi/cart-contex";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <UserProvider>
-      <ProductProvider>
+      <CollectionProvider>
         <CartProvider>
           <App />
         </CartProvider>
-      </ProductProvider>
+      </CollectionProvider>
     </UserProvider>
   </React.StrictMode>
 );

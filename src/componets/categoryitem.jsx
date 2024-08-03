@@ -1,9 +1,14 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Categoryitem({ categories }) {
+  const navigate = useNavigate();
   const { title, imageUrl } = categories;
   return (
-    <div className="category-container">
+    <div
+      onClick={() => navigate(`shop/${title}`)}
+      className="category-container"
+    >
       <div
         className="background-image"
         style={{
